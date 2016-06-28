@@ -59,7 +59,8 @@ I suggest to use export, but you can placed in the code direclty is your busines
 
 To get this credentials you must create a twitter app in *https://apps.twitter.com*
 To run the script just 
-```validation_algorithm.rb```
+
+```# validation_algorithm.rb```
 
 Output example:
 ```
