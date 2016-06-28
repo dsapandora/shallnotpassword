@@ -1,16 +1,28 @@
 require 'raspell'
+require 'twitter'
 
-def get_password_strenght(password)
+config = {
+consumer_key:    ENV["YOUR_CONSUMER_KEY"],
+consumer_secret: ENV["YOUR_CONSUMER_SECRET"]
+}
+@client = Twitter::REST::Client.new(config)
+
+def get_password_strenght(password, tweet_user)
   reduced_phrase = reduce_password(password.downcase)
   count = representative_character_count(reduced_phrase)
   strenght = count * reduced_phrase.size
+  message = ""
   if strenght <= 10
-    'Unacceptable'
+    message = 'The pasword is Unacceptable, you should retry another one.'
   elsif strenght < 50
-    'Week'
+      # TODO Hard the password to be strong
+      message = 'The pasword is Week, we should reply you a new one when the feature is ready.'
   else
-    'Strong'
+    message = 'Congratulations!!! your password is Strong.'
   end
+  message = "@#{tweet_user} #{message}"
+  @client.update(message)
+  print message
 end
 
 def reduce_password(password)
@@ -40,4 +52,12 @@ def representative_character_count(reduced_phrase)
 end
 
 
-print get_password_strenght(ARGV[0])
+
+def lookup_tweet_mention_the_user
+  @client.search('to:@YouShallNotPasswor', result_type: 'recent').take(3).collect do |tweet|
+    get_password_strenght(tweet.text, tweet.user.screen_name)
+  end
+end
+
+
+lookup_tweet_mention_the_user
