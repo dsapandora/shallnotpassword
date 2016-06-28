@@ -3,7 +3,10 @@ require 'twitter'
 
 config = {
 consumer_key:    ENV["YOUR_CONSUMER_KEY"],
-consumer_secret: ENV["YOUR_CONSUMER_SECRET"]
+consumer_secret: ENV["YOUR_CONSUMER_SECRET"],
+access_token: ENV["ACCESS_TOKEN"],
+access_token_secret: ENV["ACCESS_TOKEN_SECRET"]
+
 }
 @client = Twitter::REST::Client.new(config)
 
@@ -54,7 +57,7 @@ end
 
 
 def lookup_tweet_mention_the_user
-  @client.search('to:@YouShallNotPasswor', result_type: 'recent').take(3).collect do |tweet|
+  @client.search("to:YouShallNotPassword", result_type: "recent").take(3).collect do |tweet|
     get_password_strenght(tweet.text, tweet.user.screen_name)
   end
 end
