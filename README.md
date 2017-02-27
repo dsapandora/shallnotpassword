@@ -66,4 +66,4 @@ Output example:
 ```
 @lacedbiebs Congratulations!!! your password is Strong.@supermansgiirll The pasword is Week, we should reply you a new one when the feature is ready.@AntoniaMliakova Congratulations!!! your password is Strong.%  
 ```
-**Poor girls**
+
